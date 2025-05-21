@@ -5,7 +5,11 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+// For the Views part of the poge and its processes in SSR
+
 $routes->get('/', 'Home::index');
+$routes->get('login', 'Pages\Login::index');
 
 $routes->group('user', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->options('(:any)', function() {
@@ -21,4 +25,7 @@ $routes->group('user', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->put('update/(:segment)', 'UserController::update/$1', ['filter' => 'cors']);
     $routes->delete('delete/(:segment)', 'UserController::delete/$1', ['filter' => 'cors']);
 });
+
+
+
 

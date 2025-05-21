@@ -26,7 +26,7 @@ export default defineConfig({
   root: __dirname,
   publicDir: false, // Don't copy public dir
   build: {
-    outDir: path.resolve(__dirname, '../public'),
+    outDir: path.resolve(__dirname, '../public/resources'),
     emptyOutDir: true,
     rollupOptions: {
       input: getEntries(),

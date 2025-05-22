@@ -1,84 +1,69 @@
-/* pages/login */
-
 @use "../../node_modules/bulma/sass/utilities/mixins.scss" as bulmaMixins;
 @use "../../node_modules/bulma/sass/utilities/initial-variables.scss" as bulmaVars;
 
+:root {
+  --shadowDark: #D9DDE6;
+  --background: #E4E9F2;
+  --shadowLight: #EFF5FE;
+}
 
-.login {
-    
-  font-family: 'Questrial', sans-serif;
-  font-size: 14px;
-  font-weight: 300;
+body {
+  background: var(--background);
+  font-family: 'Nunito Sans', sans-serif;
+}
 
-  .hero.is-success {
-    background: #F2F6FA;
-  }
+.hero-body {
+  justify-content: center;
+}
 
-  .hero .nav, .hero.is-success .nav {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
+main.login {
+  border-radius: 25px;
+  padding: 1.5rem;
+  box-shadow: 8px 8px 15px var(--shadowDark), -8px -8px 15px var(--shadowLight);
+  font-family: 'Nunito Sans', sans-serif;
+}
 
-  .box {
-    margin-top: 5rem;
-  }
+main.login input {
+  background: var(--shadowDark) !important;
+  font-family: 'Nunito Sans', sans-serif;
+}
 
-  .avatar {
-    margin-top: -70px;
-    padding-bottom: 20px;
-    img {
-      padding: 5px;
-      background: #fff;
-      border-radius: 50%;
-      -webkit-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
-      box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
-    }
-  }
+main.login a {
+  font-weight: 600;
+  font-family: 'Nunito Sans', sans-serif;
+}
 
-  input {
-    font-weight: 300;
-  }
+/* Optional: If you want the inner .login div to inherit the same look, add: */
+main.login > .login {
+  border-radius: 25px;
+  padding: 1.5rem;
+  box-shadow: 8px 8px 15px var(--shadowDark), -8px -8px 15px var(--shadowLight);
+  background: transparent;
+}
 
-  p {
-    font-weight: 700;
-    &.subtitle {
-      padding-top: 1rem;
-    }
-  }
-
-  .login-hr {
-    border-bottom: 1px solid black;
-  }
-
-  .has-text-black {
-    color: black;
-  }
-
-  .field {
-    padding-bottom: 10px;
-  }
-
-  .fa {
-    margin-left: 5px;
-  }
-
-  @include bulmaMixins.mobile {
+/* Responsive background for the main container if needed */
+@include bulmaMixins.mobile {
+  main.login {
     background-color: bulmaVars.$grey-light;
   }
-  
-  @include bulmaMixins.tablet {  
+}
+@include bulmaMixins.tablet {
+  main.login {
     background-color: bulmaVars.$grey-light;
   }
-  
-  @include bulmaMixins.desktop {
+}
+@include bulmaMixins.desktop {
+  main.login {
     background-color: bulmaVars.$grey-light;
   }
-  
-  @include bulmaMixins.widescreen {
+}
+@include bulmaMixins.widescreen {
+  main.login {
     background-color: bulmaVars.$grey-light;
   }
-  
-  @include bulmaMixins.fullhd { 
-    background-color: bulmaVars.$grey-light;  
+}
+@include bulmaMixins.fullhd {
+  main.login {
+    background-color: bulmaVars.$grey-light;
   }
 }

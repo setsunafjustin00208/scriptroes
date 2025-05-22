@@ -1,30 +1,84 @@
 /* pages/login */
 
-@import "../../node_modules/bulma/sass/utilities/mixins.scss";
-@import "../../node_modules/bulma/sass/utilities/initial-variables.scss";
+@use "../../node_modules/bulma/sass/utilities/mixins.scss" as bulmaMixins;
+@use "../../node_modules/bulma/sass/utilities/initial-variables.scss" as bulmaVars;
 
 
 .login {
+    
+  font-family: 'Questrial', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
 
-    @include mobile {
-        background-color: $grey-light;
+  .hero.is-success {
+    background: #F2F6FA;
+  }
+
+  .hero .nav, .hero.is-success .nav {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+
+  .box {
+    margin-top: 5rem;
+  }
+
+  .avatar {
+    margin-top: -70px;
+    padding-bottom: 20px;
+    img {
+      padding: 5px;
+      background: #fff;
+      border-radius: 50%;
+      -webkit-box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+      box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
     }
-    
-    @include tablet {
-        background-color: $grey-light;
+  }
+
+  input {
+    font-weight: 300;
+  }
+
+  p {
+    font-weight: 700;
+    &.subtitle {
+      padding-top: 1rem;
     }
-    
-    @include desktop {
-        background-color: $grey-light;
-    }
-    
-    @include widescreen {
-        background-color: $grey-light;
-    }
-    
-    @include fullhd {
-        background-color: $grey-light;
-    }
- 
+  }
+
+  .login-hr {
+    border-bottom: 1px solid black;
+  }
+
+  .has-text-black {
+    color: black;
+  }
+
+  .field {
+    padding-bottom: 10px;
+  }
+
+  .fa {
+    margin-left: 5px;
+  }
+
+  @include bulmaMixins.mobile {
+    background-color: bulmaVars.$grey-light;
+  }
   
+  @include bulmaMixins.tablet {  
+    background-color: bulmaVars.$grey-light;
+  }
+  
+  @include bulmaMixins.desktop {
+    background-color: bulmaVars.$grey-light;
+  }
+  
+  @include bulmaMixins.widescreen {
+    background-color: bulmaVars.$grey-light;
+  }
+  
+  @include bulmaMixins.fullhd { 
+    background-color: bulmaVars.$grey-light;  
+  }
 }

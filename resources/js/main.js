@@ -37,3 +37,17 @@ function getCookie(name) {
     }
     return null;
 }
+
+function eraseCookie(name) { 
+   //create to erase cookies
+    document.cookie = name + '=; Max-Age=-99999999;';
+}
+function setLocalStorage (name, value) {
+    localStorage.setItem(name, value);
+}
+function getLocalStorage (name) {
+    return localStorage.getItem(name);
+}
+function removeLocalStorage (name) {
+    localStorage.removeItem(name);
+}

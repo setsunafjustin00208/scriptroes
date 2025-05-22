@@ -6,8 +6,9 @@ let LoginForm = {
         emailInput: '#email-input',
         passwordInput: '#password-input',
         submitButton: '#submit-button',
-        errorMessage: '#error-message'
-,
+        errorMessage: '#error-message',
+        burgerButton: '.burger',
+
     },
 
     handlers : { 
@@ -47,7 +48,7 @@ let LoginForm = {
         },
 
         init : function() { 
-
+            
         }
 
     },
@@ -59,8 +60,55 @@ let LoginForm = {
     },
 
     events : {	
+
+        loginBurger: function() {
+
+            // jQuery version of the burger menu toggle
+            const self = LoginForm;
+
+            var $burger = window.$(self.elements.burgerButton);
+
+            if ($burger.length === 0) return;
+
+            var targetId = $burger.data('target');
+            var $menu = window.$('#' + targetId);
+
+            $burger.on('click', function() {
+                $burger.toggleClass('is-active');
+                $menu.toggleClass('is-active');
+            });
+
+        },
+
+        rememeberMe: function() {
+            const self = LoginForm;
+            const rememberMeCheckbox = window.$('#remember-me');
+            const emailInput = window.$(self.elements.emailInput);
+            const password = window.$(self.elements.passwordInput);
+
+            if (rememberMeCheckbox.is(':checked')) {
+                setLocalStorage('email', emailInput.val());
+                setLocalStorage('password', password.val());
+            } else {
+                removeLocalStorage('email');
+                removeLocalStorage('password');
+            }
+
+            //setValues of email and password inputs
+            if (getLocalStorage('email') && getLocalStorage('password')) {
+                emailInput.val(getLocalStorage('email'));
+                password.val(getLocalStorage('password'));
+            } else {
+                emailInput.val('');
+                password.val('');
+            }
+
+
+        },
          init : function() { 
-            
+            var self = LoginForm;
+            self.events.loginBurger();
+            self.events.rememeberMe();
         }
     },
 

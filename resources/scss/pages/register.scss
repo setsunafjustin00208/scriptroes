@@ -1,17 +1,18 @@
+/* pages/register */
+
 @use "../../node_modules/bulma/sass/utilities/mixins" as bulmaMixins;
 @use "../../node_modules/bulma/sass/utilities/initial-variables" as bulmaVars;
-@use "../../node_modules/bulma/sass/utilities/derived-variables" as bulmaInitialVars; 
+@use "../../node_modules/bulma/sass/utilities/derived-variables" as bulmaInitialVars;
 
-
-.login {
+.register {
   font-family: 'Nunito Sans', sans-serif;
   
   .___set-background {
     position: relative;
     overflow: hidden;
-    height: 100vh;
+    height: 123vh; 
     .background-image-login {
-      background-image: url('../../img/backgrounds/the-dark-tower.webp');
+      background-image: url('../../img/backgrounds/space-bg.jpg'); 
       background-size: cover;
       background-position: center;
       position: absolute;
@@ -25,33 +26,28 @@
     }
   }
 
-  .login__container {
-
+  .register__container {
     font-size : 1.2em;
-
     @include bulmaMixins.mobile {
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../img/backgrounds/the-dark-tower.webp');
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../img/backgrounds/space-bg.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       height: 100%;
-      z-index: 1;
-
-      
+      z-index: 1; 
     }
-    .login__logo {
-        margin: .5em auto;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    .login-form {
+    .register__logo { 
+      margin: .5em auto;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .register-form {
       width: 100%;
       max-width: 400px;
       margin: auto;
       font-size: 1.5em;
-
       .button { width: 100%; }
     }
   }
@@ -66,16 +62,16 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    background-color: #282829;
+    background-color: #1f1f20;
     color: #f1f1f1;
     .___set-background {
       .background-image-login {
         filter: brightness(0.7);
       }
     }
-    .login__container {
+    .register__container {
       // background: rgba(30, 32, 40, 0.85);
-      .login-form {
+      .register-form {
         background: transparent;
         color: #f1f1f1;
       }
@@ -86,14 +82,14 @@
       border-color: #444;
     }
     a {
-      color: #8ab4f8;
+      color: #8ab4f8; 
     }
     .box {
-      background: #37393a;
-      box-shadow: 8px 8px 15px #111217, -8px -8px 15px #23242b;
+      background: #222324;
+      box-shadow: 8px 8px 15px #0a0a0c, -8px -8px 15px #23242b;
       @include bulmaMixins.mobile {
         background: #262727;
-        box-shadow: 7px 7px 10px #111217, -5px -5px 10px #23242b;
+        box-shadow: 7px 7px 10px #0c0d10, -5px -5px 10px #23242b;
       }
     }
   }

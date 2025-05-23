@@ -76,4 +76,10 @@ defined('EXIT_UNKNOWN_METHOD') || define('EXIT_UNKNOWN_METHOD', 6); // unknown c
 defined('EXIT_USER_INPUT')     || define('EXIT_USER_INPUT', 7);     // invalid user input
 defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8);       // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9);      // lowest automatically-assigned error code
-defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125);    // highest automatically-assigned error code
+defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); 
+
+//Project related constants // highest automatically-assigned error code
+
+defined('APP_NAME') || define('APP_NAME', getenv('app.siteName') ?: 'CodeIgniter 4');
+defined('environment') || define('environment', getenv('CI_ENVIRONMENT') ?: 'development');
+

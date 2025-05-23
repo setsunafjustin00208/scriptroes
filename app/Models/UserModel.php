@@ -153,6 +153,19 @@ class UserModel extends Model
         return $cred;
     }
 
+    //method get user by email
+    public function getUserByEmail($email)
+    {
+        $this->setCollection($this->credentialsCollection);
+        $cred = $this->mongo->findDocument(['email' => $email]);
+        if ($cred && isset($cred['personal_info_id'])) {
+            $this->setCollection($this->personalInfoCollection);
+            $info = $this->mongo->findById($cred['personal_info_id']);
+            $cred['personal_info'] = $info;
+        }
+        return $cred;
+    }
+
     public function updateUser($id, $data)
     {
         $this->setCollection($this->credentialsCollection);

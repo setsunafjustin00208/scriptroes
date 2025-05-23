@@ -41,13 +41,15 @@ class UserController extends BaseController
             return $this->failValidationErrors('Username and password are required.');
         }
         $userModel = new UserModel();
-        $user = $userModel->getUser(['username' => $data['username']]);
+        // Use getUserByEmail instead of getUser
+        $user = $userModel->getUserByEmail($data['username']);
         if ($user && password_verify($data['password'], $user['password'])) {
             session()->set('user', [
                 'id' => (string)($user['_id'] ?? $user['id'] ?? ''),
                 'username' => $user['username'],
                 'type' => $user['type'],
                 'permissions' => $user['permissions'],
+                'is_logged_in' => true,
             ]);
             return $this->respond(['message' => 'Login successful']);
         }

@@ -10,6 +10,8 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Home::index');
 $routes->get('login', 'Pages\Login::index');
+$routes->get('register', 'Pages\Register::index');
+$routes->get('home', 'Pages\HomePage::index');
 
 $routes->group('user', ['namespace' => 'App\Controllers'], function($routes) {
     $routes->options('(:any)', function() {
@@ -21,9 +23,12 @@ $routes->group('user', ['namespace' => 'App\Controllers'], function($routes) {
     });
     $routes->post('register', 'UserController::register', ['filter' => 'cors']);
     $routes->post('login', 'UserController::login', ['filter' => 'cors']);
-    $routes->post('logout', 'UserController::logout', ['filter' => 'cors']);
+    $routes->get('logout', 'UserController::logout', ['filter' => 'cors']);
     $routes->put('update/(:segment)', 'UserController::update/$1', ['filter' => 'cors']);
     $routes->delete('delete/(:segment)', 'UserController::delete/$1', ['filter' => 'cors']);
+    // Add RESTful GET endpoints for user info
+    $routes->get('profile/(:segment)', 'UserController::profile/$1', ['filter' => 'cors']);
+    $routes->get('all', 'UserController::all', ['filter' => 'cors']);
 });
 
 

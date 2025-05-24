@@ -3,14 +3,14 @@
 ## Overview
 
 Scriptores is a modern CodeIgniter 4 application starter, featuring:
-- Vite-powered asset pipeline (SCSS, JS/TS, Bulma, Font Awesome)
+- Grunt-powered asset pipeline (SCSS, JS/TS, Bulma, Font Awesome)
 - MongoDB-based models and collections
 - Modular user management with bitwise permissions and user types
 - CLI and RESTful API for user and content management
 
 ## Features
 
-- **Asset Pipeline**: Uses Vite for compiling SCSS and JS/TS from `resources/`, outputs to `public/` with minification and watch support. Bulma and Font Awesome are integrated.
+- **Asset Pipeline**: Uses Grunt for compiling SCSS and JS/TS from `resources/`, outputs to `public/` with minification and watch support. Bulma and Font Awesome are integrated.
 - **MongoDB Integration**: Models use MongoDB via a custom library. User data is split between `credentials` and `personal_information` collections, with references for profile data.
 - **User Management**:
   - User types: super-admin, admin, user, publisher, editor, moderator, viewer
@@ -30,10 +30,11 @@ Scriptores is a modern CodeIgniter 4 application starter, featuring:
    ```
 2. **Environment**
    - Copy `env` to `.env` and configure your `baseURL` and MongoDB connection string (see `.env` and `UserModel.php`).
-3. **Vite Asset Build**
-   - For development: `npx vite`
-   - For production: `npx vite build`
-   - Assets are output to `public/`.
+3. **Asset Build with Grunt**
+   - For development: `npm run dev`
+   - For production: `npm run build`
+   - Assets (SCSS, JS) are compiled/minified from `resources/` to `public/resources/`.
+   - Bulma, Font Awesome, and Animate.css are integrated and copied to the correct public folders.
 4. **Web Server**
    - Point your web server to the `public/` directory.
 
@@ -75,7 +76,7 @@ Scriptores is a modern CodeIgniter 4 application starter, featuring:
 
 ## Development Process
 
-- **Asset Development**: Edit files in `resources/js/` and `resources/scss/`. Use Vite for live reload and builds.
+- **Asset Development**: Edit files in `resources/js/` and `resources/scss/`. Use Grunt for live reload and builds (`npx grunt watch`).
 - **Model/Controller Development**: Add or update models in `app/Models/` and controllers in `app/Controllers/`.
 - **MongoDB Schema**: Collections are schemaless, but see `UserModel.php` for expected fields and structure.
 - **Testing**: Use PHPUnit for backend tests. Place tests in `tests/`.

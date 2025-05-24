@@ -106,6 +106,8 @@ class UserModel extends Model
     {
         // Insert personal info first
         $personalInfo = $data['personal_info'] ?? [];
+        $personalInfo['created_at'] = date('Y-m-d H:i:s');
+        $personalInfo['updated_at'] = $personalInfo['created_at'];
         $this->setCollection($this->personalInfoCollection);
         $personalResult = $this->mongo->insertDocument($personalInfo);
         $personalId = is_object($personalResult) && method_exists($personalResult, 'getInsertedId') ? $personalResult->getInsertedId() : null;
@@ -117,6 +119,10 @@ class UserModel extends Model
             'type' => $data['type'],
             'permissions' => $data['permissions'],
             'personal_info_id' => $personalId ? (string)$personalId : null,
+            'confirmation_code' => $data['confirmation_code'] ?? null,
+            'is_active' => $data['is_active'] ?? false,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
         $this->setCollection($this->credentialsCollection);
         $credResult = $this->mongo->insertDocument($credentials);
@@ -153,6 +159,19 @@ class UserModel extends Model
         return $cred;
     }
 
+    //method get user by email
+    public function getUserByEmail($email)
+    {
+        $this->setCollection($this->credentialsCollection);
+        $cred = $this->mongo->findDocument(['email' => $email]);
+        if ($cred && isset($cred['personal_info_id'])) {
+            $this->setCollection($this->personalInfoCollection);
+            $info = $this->mongo->findById($cred['personal_info_id']);
+            $cred['personal_info'] = $info;
+        }
+        return $cred;
+    }
+
     public function updateUser($id, $data)
     {
         $this->setCollection($this->credentialsCollection);
@@ -163,7 +182,7 @@ class UserModel extends Model
             $result = $this->mongo->updateDocument(['_id' => new ObjectId($cred['personal_info_id'])], $data['personal_info']);
         }
         // Optionally update credentials fields
-        $credFields = array_intersect_key($data, array_flip(['username','password','email','type','permissions']));
+        $credFields = array_intersect_key($data, array_flip(['username','password','email','type','permissions','is_active','confirmation_code']));
         if (!empty($credFields)) {
             $this->setCollection($this->credentialsCollection);
             $result = $this->mongo->updateDocument(['_id' => new ObjectId($id)], $credFields);

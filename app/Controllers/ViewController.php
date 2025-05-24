@@ -9,6 +9,6 @@ class ViewController extends BaseController
 {
     public function index()
     {
-        //
+        return view('pages/login');
     }
 }

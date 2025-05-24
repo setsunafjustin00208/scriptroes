@@ -1,0 +1,100 @@
+@use "../../node_modules/bulma/sass/utilities/mixins" as bulmaMixins;
+@use "../../node_modules/bulma/sass/utilities/initial-variables" as bulmaVars;
+@use "../../node_modules/bulma/sass/utilities/derived-variables" as bulmaInitialVars; 
+
+
+.login {
+  font-family: 'Nunito Sans', sans-serif;
+  
+  .___set-background {
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    .background-image-login {
+      background-image: url('../../img/backgrounds/the-dark-tower.webp');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    @include bulmaMixins.mobile {
+      height: unset !important;
+    }
+  }
+
+  .login__container {
+
+    font-size : 1.2em;
+
+    @include bulmaMixins.mobile {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../img/backgrounds/the-dark-tower.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100%;
+      z-index: 1;
+
+      
+    }
+    .login__logo {
+        margin: .5em auto;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    .login-form {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      font-size: 1.5em;
+
+      .button { width: 100%; }
+    }
+  }
+
+  input {
+    background: #D9DDE6 !important;
+    font-family: inherit;
+  }
+  a {
+    font-weight: 600;
+    font-family: inherit;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #282829;
+    color: #f1f1f1;
+    .___set-background {
+      .background-image-login {
+        filter: brightness(0.7);
+      }
+    }
+    .login__container {
+      // background: rgba(30, 32, 40, 0.85);
+      .login-form {
+        background: transparent;
+        color: #f1f1f1;
+      }
+    }
+    input {
+      background: #23242b !important;
+      color: #f1f1f1;
+      border-color: #444;
+    }
+    a {
+      color: #8ab4f8;
+    }
+    .box {
+      background: #37393a;
+      box-shadow: 8px 8px 15px #111217, -8px -8px 15px #23242b;
+      @include bulmaMixins.mobile {
+        background: #262727;
+        box-shadow: 7px 7px 10px #111217, -5px -5px 10px #23242b;
+      }
+    }
+  }
+}

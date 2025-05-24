@@ -126,4 +126,33 @@ class MongoDBLibrary
             return false;
         }
     }
+
+    /**
+     * Get all non-system databases and their collections.
+     * @return array [ dbName => [collection1, collection2, ...], ... ]
+     */
+    public function getAllDatabasesAndCollections()
+    {
+        $systemDbs = ['admin', 'local', 'config'];
+        $result = [];
+        foreach ($this->client->listDatabases() as $dbInfo) {
+            $dbName = $dbInfo['name'];
+            if (in_array($dbName, $systemDbs)) continue;
+            $db = $this->client->selectDatabase($dbName);
+            $result[$dbName] = [];
+            foreach ($db->listCollections() as $collectionInfo) {
+                $result[$dbName][] = $collectionInfo->getName();
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Get the underlying MongoDB client instance.
+     * @return \MongoDB\Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
 }

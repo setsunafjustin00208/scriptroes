@@ -1,0 +1,134 @@
+/* pages/register */
+
+@use "../../node_modules/bulma/sass/utilities/mixins" as bulmaMixins;
+@use "../../node_modules/bulma/sass/utilities/initial-variables" as bulmaVars;
+@use "../../node_modules/bulma/sass/utilities/derived-variables" as bulmaInitialVars;
+
+.register {
+  font-family: 'Nunito Sans', sans-serif;
+  
+  .___set-background {
+    position: relative;
+    overflow: hidden;
+    height: 125vh; 
+    .background-image-login {
+      background-image: url('../../img/backgrounds/space-bg.jpg'); 
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    @include bulmaMixins.mobile {
+      height: unset !important;
+    }
+  }
+
+  .register__container {
+    font-size : 1.2em;
+    @include bulmaMixins.mobile {
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../img/backgrounds/space-bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100%;
+      z-index: 1; 
+    }
+    .register__logo { 
+      margin: .5em auto;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .register-form {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+      font-size: 1.5em;
+      .button { width: 100%; }
+    }
+  }
+
+  input {
+    background: #D9DDE6 !important;
+    font-family: inherit;
+  }
+  a {
+    font-weight: 600;
+    font-family: inherit;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #1f1f20;
+    color: #f1f1f1;
+    .___set-background {
+      .background-image-login {
+        filter: brightness(0.7);
+      }
+    }
+    .register__container {
+      // background: rgba(30, 32, 40, 0.85);
+      .register-form {
+        background: transparent;
+        color: #f1f1f1;
+      }
+    }
+    input {
+      background: #23242b !important;
+      color: #f1f1f1;
+      border-color: #444;
+    }
+    a {
+      color: #8ab4f8; 
+    }
+    .box {
+      background: #222324;
+      box-shadow: 8px 8px 15px #0a0a0c, -8px -8px 15px #23242b;
+      @include bulmaMixins.mobile {
+        background: #262727;
+        box-shadow: 7px 7px 10px #0c0d10, -5px -5px 10px #23242b;
+      }
+    }
+  }
+
+  // Fade transitions for registration and confirmation code forms
+  .fade-in {
+    animation: fadeIn 2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1 !important;
+    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fade-out {
+    animation: fadeOut 2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0 !important;
+    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    10% { opacity: 0.1; }
+    20% { opacity: 0.2; }
+    30% { opacity: 0.3; }
+    40% { opacity: 0.4; }
+    50% { opacity: 0.5; }
+    60% { opacity: 0.6; }
+    70% { opacity: 0.7; }
+    80% { opacity: 0.8; }
+    90% { opacity: 0.9; }
+    100% { opacity: 1; }
+  }
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    10% { opacity: 0.9; }
+    20% { opacity: 0.8; }
+    30% { opacity: 0.7; }
+    40% { opacity: 0.6; }
+    50% { opacity: 0.5; }
+    60% { opacity: 0.4; }
+    70% { opacity: 0.3; }
+    80% { opacity: 0.2; }
+    90% { opacity: 0.1; }
+    100% { opacity: 0; }
+  }
+}

@@ -3,6 +3,7 @@
 <head>
     <?= view('partials/metadata', isset($meta) ? $meta : []) ?>
     <?= view('partials/styles', isset($resources['styles']) ? ['styles' => $resources['styles']] : []) ?>
+    <?php if (isset($structuredData)) echo $structuredData; ?>
 </head>
 <body>
     <?= view('partials/global_variables'); ?>

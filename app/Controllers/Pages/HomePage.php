@@ -5,6 +5,8 @@ namespace App\Controllers\Pages;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Libraries\StructuredData;
+use App\Libraries\ComponentResources;
 
 class HomePage extends BaseController
 {
@@ -45,8 +47,41 @@ class HomePage extends BaseController
         $data['resources']['scripts'] = [
             'resources/js/pages/homepage.min.js'
         ];
+
+        // Structured Data: Website > WebPage > Organization
+        $sd = new StructuredData([
+            'baseUrl' => base_url('/'),
+            'title' => $data['meta']['title'],
+            'description' => $data['meta']['description'],
+            'keywords' => $data['meta']['keywords'],
+            'organizationName' => APP_NAME,
+            'logoUrl' => base_url('resources/images/logo.png'),
+            'language' => 'en-US',
+        ]);
+        $organization = $sd->getDefaultStructuredByType('organization');
+        $webPage = $sd->getDefaultStructuredByType('webpage');
+        $webPage['about'] = $organization;
+        $website = $sd->getDefaultStructuredByType('website');
+        $website['mainEntity'] = $webPage;
+        $sd->addProperties($website);
+        $data['structuredData'] = $sd->generate();
+
+        // Add all default component resources (navbar, footer, sidebar) at once
+        $componentResources = ComponentResources::getAllDefaultResources();
+        $data['resources']['styles'] = array_merge($componentResources['styles'], [
+            'resources/css/pages/homepage.min.css'
+        ]);
+        $data['resources']['scripts'] = array_merge($componentResources['scripts'], [
+            'resources/js/pages/homepage.min.js'
+        ]);
+
         $this->setStatusCode($data['statusCode']);
         $this->setHeaders($data['headers']);
+
+        if (!$userData || empty($userData['id'])) {
+            return redirect()->to(base_url('login'));
+        }
+
         return view('pages/homepage', $data);
     }
 

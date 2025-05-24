@@ -4,6 +4,7 @@ namespace App\Controllers\Pages;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Libraries\StructuredData;
 
 class Register extends BaseController
 {
@@ -31,8 +32,25 @@ class Register extends BaseController
             'resources/js/pages/register.min.js' // reuse login/register JS
         ];
 
+        $sd = new StructuredData([
+            'baseUrl' => base_url('login'),
+            'title' => $data['meta']['title'],
+            'description' => $data['meta']['description'],
+            'keywords' => $data['meta']['keywords'],
+            'organizationName' => APP_NAME,
+            'logoUrl' => base_url('resources/images/logo.png'),
+            'language' => 'en-US',
+        ]);
+        $webPage = $sd->getDefaultStructuredByType('webpage');
+        $sd->addProperties($webPage);
+        $data['structuredData'] = $sd->generate();
+
         $this->setStatusCode($data['statusCode']);
         $this->setHeaders($data['headers']);
+
+        if (session()->get('user')) {
+            return redirect()->to(base_url('home'));
+        }
 
         return view('pages/register', $data);
     }

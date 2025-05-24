@@ -1,6 +1,7 @@
 <!-- pages: homepage -->
  <?= $this->extend('layout/default') ?>
  <?= $this->section('content') ?>
+ <?= $this->include('components/navbar') ?>
  <main class="homepage">
     <h1 class="title">Welcome, <?= esc($fullname) ?></h1>
     <?php if ($user): ?>

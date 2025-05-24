@@ -1,1 +1,40 @@
 /* components/navbar */
+
+@use "../../node_modules/bulma/sass/utilities/mixins" as bulmaMixins;
+@use "../../node_modules/bulma/sass/utilities/initial-variables" as bulmaVars;
+@use "../../node_modules/bulma/sass/utilities/derived-variables" as bulmaInitialVars; 
+
+.navbar {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #D9DDE6 !important;
+    color: #000 !important;
+    padding: 0.5em 1em;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    
+    .navbar-brand {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #000 !important;
+        text-decoration: none;
+        margin-right: 1em;
+    
+        &:hover {
+        color: #000 !important;
+        text-decoration: none;
+        }
+    }
+    
+    .navbar-menu {
+        font-size: 1.2em;
+    
+        .navbar-item {
+        color: #000 !important;
+    
+        &:hover {
+            color: #000 !important;
+            text-decoration: none;
+        }
+        }
+    }
+}

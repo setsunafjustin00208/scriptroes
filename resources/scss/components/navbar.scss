@@ -6,7 +6,6 @@
 
 .navbar {
     font-family: 'Nunito Sans', sans-serif;
-    background-color: #D9DDE6 !important;
     color: #000 !important;
     padding: 0.5em 1em;
     box-shadow: none !important;
@@ -20,21 +19,34 @@
         margin-right: 1em;
     
         &:hover {
-        color: #000 !important;
-        text-decoration: none;
+            color: #000 !important;
+            text-decoration: none;
         }
     }
     
     .navbar-menu {
-        font-size: 1.2em;
+        font-size: 1em;
     
         .navbar-item {
-        color: #000 !important;
-    
-        &:hover {
             color: #000 !important;
-            text-decoration: none;
+    
+            &:hover {
+                color: #000 !important;
+                text-decoration: none;
+            }
         }
+    }
+
+    // Dark mode preference
+    @media (prefers-color-scheme: dark) {
+        background-color: #23272f !important;
+        color: #f5f5f5 !important;
+        .navbar-brand,
+        .navbar-menu .navbar-item {
+            color: #f5f5f5 !important;
+        }
+        .navbar-menu .navbar-item:hover {
+            color: #b3b3b3 !important;
         }
     }
 }

@@ -10,11 +10,6 @@ class UserController extends BaseController
 {
     use ResponseTrait;
 
-    public function index()
-    {
-        //
-    }
-
     public function register()
     {
         $data = $this->request->getJSON(true) ?? $this->request->getPost();
@@ -59,7 +54,17 @@ class UserController extends BaseController
     public function logout()
     {
         session()->remove('user');
-        return $this->respond(['message' => 'Logged out']);
+        return redirect()->to('/login')->with('message', 'Logged out');
+    }
+
+    public function getUser($id)
+    {
+        $userModel = new UserModel();
+        $user = $userModel->getUserById($id);
+        if ($user) {
+            return $this->respond($user);
+        }
+        return $this->failNotFound('User not found.');
     }
 
     public function update($id)

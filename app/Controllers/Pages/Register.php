@@ -5,6 +5,7 @@ namespace App\Controllers\Pages;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Libraries\StructuredData;
+use App\Libraries\EmailLibrary;
 
 class Register extends BaseController
 {
@@ -65,4 +66,5 @@ class Register extends BaseController
     {
         $this->response->setStatusCode($code);
     }
+
 }

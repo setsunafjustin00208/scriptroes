@@ -61,7 +61,7 @@
             <span class="icon"><i class="fas fa-cog"></i></span> Settings
           </a>
           <hr class="navbar-divider">
-          <a class="navbar-item has-text-danger" href="/logout">
+          <a class="navbar-item has-text-danger" href="/user/logout">
             <span class="icon"><i class="fas fa-sign-out-alt"></i></span> Logout
           </a>
         </div>

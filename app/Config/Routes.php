@@ -22,10 +22,12 @@ $routes->group('user', ['namespace' => 'App\Controllers'], function($routes) {
             ->setStatusCode(204);
     });
     $routes->post('register', 'UserController::register', ['filter' => 'cors']);
+    $routes->post('activate', 'UserController::activate', ['filter' => 'cors']);
     $routes->post('login', 'UserController::login', ['filter' => 'cors']);
     $routes->get('logout', 'UserController::logout', ['filter' => 'cors']);
     $routes->put('update/(:segment)', 'UserController::update/$1', ['filter' => 'cors']);
     $routes->delete('delete/(:segment)', 'UserController::delete/$1', ['filter' => 'cors']);
+    
     // Add RESTful GET endpoints for user info
     $routes->get('profile/(:segment)', 'UserController::profile/$1', ['filter' => 'cors']);
     $routes->get('all', 'UserController::all', ['filter' => 'cors']);

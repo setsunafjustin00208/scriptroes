@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use CodeIgniter\API\ResponseTrait;
+use App\Libraries\EmailLibrary;
 
 class UserController extends BaseController
 {
@@ -17,16 +18,79 @@ class UserController extends BaseController
             return $this->failValidationErrors('Username, password, and email are required.');
         }
         $userModel = new UserModel();
+        // Check if user already exists
+        $existing = $userModel->getUserByEmail($data['email']);
+        if ($existing) {
+            if (!empty($existing['is_active'])) {
+                return $this->failValidationErrors('Account already active. Please log in.');
+            } else {
+                return $this->failValidationErrors('Account already registered but not activated. Please check your email for the confirmation code.');
+            }
+        }
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         $data['type'] = $data['type'] ?? 'user';
         $data['permissions'] = $data['permissions'] ?? UserModel::PERM_VIEW;
-        // Accept personal_info as part of registration
         $data['personal_info'] = $data['personal_info'] ?? [];
+        // Generate 6-digit confirmation code
+        $confirmation_code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+        $data['confirmation_code'] = $confirmation_code;
+        $data['is_active'] = false;
         $result = $userModel->insertUser($data);
         if (isset($result['inserted_id'])) {
-            return $this->respondCreated(['message' => 'User registered', 'id' => $result['inserted_id'], 'personal_info_id' => $result['personal_info_id']]);
+       
+            $this->sendRegistrationConfirmation($data['email'], $confirmation_code);
+       
+            return $this->respondCreated([
+                'message' => 'User registered. Please check your email for the confirmation code.',
+                'id' => $result['inserted_id'],
+                'personal_info_id' => $result['personal_info_id'],
+                'confirmation_code' => $confirmation_code // REMOVE in production
+            ]);
         }
         return $this->failServerError('Registration failed.');
+    }
+
+    /**
+     * Endpoint to verify confirmation code and activate account
+     */
+    public function activate()
+    {
+        $data = $this->request->getJSON(true) ?? $this->request->getPost();
+        if (empty($data['email']) || empty($data['confirmation_code'])) {
+            return $this->failValidationErrors('Email and confirmation code are required.');
+        }
+        $userModel = new UserModel();
+        $user = $userModel->getUserByEmail($data['email']);
+    
+        if (!empty($user['is_active'])) {
+            return $this->failValidationErrors('Account already active.');
+        }
+        if ((string)$user['confirmation_code'] != (string)$data['confirmation_code']) {
+            return $this->failValidationErrors('Invalid confirmation code.');
+        }
+        // Activate account
+        $update = $userModel->updateUser($user['_id'], [
+            'is_active' => true,
+            'confirmation_code' => null
+        ]);
+
+        if (isset($update['modified_count']) && $update['modified_count'] > 0) {
+            return $this->respond(['message' => 'Account activated. You can now log in.']);
+        }
+        return $this->failServerError('Activation failed.');
+    }
+
+
+        /**
+     * Send confirmation code to a registered email after registration.
+     * @param string $email
+     * @param string $code
+     * @return bool|string
+     */
+    private function sendRegistrationConfirmation(string $email, string $code): bool|string
+    {
+        $emailLib = new EmailLibrary();
+        return $emailLib->sendConfirmationCode($email, $code);
     }
 
     public function login()

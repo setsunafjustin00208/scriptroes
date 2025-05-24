@@ -15,7 +15,9 @@ $beige-lighter: #eff0eb;
   $link: $pink,
   $control-border-width: 3px,
   $input-shadow: none
-);
+); 
 
-// Import the Google Font
+@import "../../resources/node_modules/animate.css/animate.css";
+
+// Import the Google Font 
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");

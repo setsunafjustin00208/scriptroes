@@ -10,7 +10,7 @@
   .___set-background {
     position: relative;
     overflow: hidden;
-    height: 123vh; 
+    height: 125vh; 
     .background-image-login {
       background-image: url('../../img/backgrounds/space-bg.jpg'); 
       background-size: cover;
@@ -92,5 +92,43 @@
         box-shadow: 7px 7px 10px #0c0d10, -5px -5px 10px #23242b;
       }
     }
+  }
+
+  // Fade transitions for registration and confirmation code forms
+  .fade-in {
+    animation: fadeIn 2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1 !important;
+    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .fade-out {
+    animation: fadeOut 2s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0 !important;
+    transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    10% { opacity: 0.1; }
+    20% { opacity: 0.2; }
+    30% { opacity: 0.3; }
+    40% { opacity: 0.4; }
+    50% { opacity: 0.5; }
+    60% { opacity: 0.6; }
+    70% { opacity: 0.7; }
+    80% { opacity: 0.8; }
+    90% { opacity: 0.9; }
+    100% { opacity: 1; }
+  }
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    10% { opacity: 0.9; }
+    20% { opacity: 0.8; }
+    30% { opacity: 0.7; }
+    40% { opacity: 0.6; }
+    50% { opacity: 0.5; }
+    60% { opacity: 0.4; }
+    70% { opacity: 0.3; }
+    80% { opacity: 0.2; }
+    90% { opacity: 0.1; }
+    100% { opacity: 0; }
   }
 }

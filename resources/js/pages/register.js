@@ -66,11 +66,9 @@ let RegisterForm = {
                 }),
                 success: function(response) {
                     $error.text('').removeClass('is-danger is-success');
-                    if (response.message === 'User registered') {
-                        $error.text('Registration successful! You can now log in.').addClass('is-success');
-                        setTimeout(function() {
-                            window.location.href = '/login';
-                        }, 1000);
+                    if (response.message && response.message.indexOf('User registered') !== -1) {
+                        $error.text('Registration successful! Please check your email for the confirmation code.').addClass('is-success');
+                        RegisterForm.confirmation.showCodeInput(email, true); // Pass true to trigger transition
                     } else if (response.message) {
                         $error.text(response.message).addClass('is-danger');
                     } else if (response.error) {
@@ -97,6 +95,89 @@ let RegisterForm = {
                     }
                     $error.text(msg).addClass('is-danger');
                     $button.prop('disabled', false).removeClass('is-loading');
+                }
+            });
+        }
+    },
+    confirmation: {
+        showCodeInput: function(email, withTransition) {
+            const self = RegisterForm;
+            const $ = window.$;
+            const $registerForm = $(self.elements.registerContainer);
+            if (withTransition) {
+                $registerForm.addClass('animate__animated animate__fadeOut animate__delay-2s');
+                setTimeout(function() {
+                    $registerForm.hide();
+                    RegisterForm.confirmation.renderCodeInput(email);
+                }, 400);
+            } else {
+                $registerForm.hide();
+                RegisterForm.confirmation.renderCodeInput(email);
+            }
+        },
+        renderCodeInput: function(email) {
+            const $ = window.$;
+            if ($('#confirmation-code-section').length === 0) {
+                $(RegisterForm.elements.registerContainer).after(`
+                <div id="confirmation-code-section" class="box mt-4 animate__animated animate__fadeIn animate__delay-2s">
+                    <label class="label">Enter Confirmation Code</label>
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input id="confirmation-code-input" class="input" type="text" maxlength="6" placeholder="6-digit code">
+                        </div>
+                        <div class="control">
+                            <button id="confirm-code-button" class="button is-link">Confirm</button>
+                        </div>
+                    </div>
+                    <p id="confirmation-code-message" class="help"></p>
+                </div>
+                `);
+            } else {
+                $('#confirmation-code-section').show().addClass('animate__animated animate__fadeIn animate__delay-2s');
+            }
+            $('#confirm-code-button').off('click').on('click', function(e) {
+                e.preventDefault();
+                RegisterForm.confirmation.submitCode(email);
+            });
+        },
+        submitCode: function(email) {
+            const $ = window.$;
+            const code = $('#confirmation-code-input').val().trim();
+            const $msg = $('#confirmation-code-message');
+            $msg.text('').removeClass('is-danger is-success');
+            if (!code || code.length !== 6) {
+                $msg.text('Please enter the 6-digit code sent to your email.').addClass('is-danger');
+                return;
+            }
+            $('#confirm-code-button').prop('disabled', true).addClass('is-loading');
+            $.ajax({
+                url: 'user/activate',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ email: email, confirmation_code: code }),
+                success: function(response) {
+                    if (response.message) {
+                        $msg.text(response.message).addClass('is-success');
+                        // Fade out code input, then redirect
+                        $('#confirmation-code-section').removeClass('animate__fadeIn').addClass('animate__fadeOut');
+                        setTimeout(function() {
+                            $('#confirmation-code-section').hide();
+                            window.location.href = '/login';
+                        }, 1200);
+                    } else {
+                        $msg.text('Activation failed.').addClass('is-danger');
+                    }
+                    $('#confirm-code-button').prop('disabled', false).removeClass('is-loading');
+                },
+                error: function(xhr) {
+                    let msg = 'Activation failed.';
+                    if (xhr.responseJSON && xhr.responseJSON.messages) {
+                        msg = xhr.responseJSON.messages.error;
+                    } else if (xhr.responseJSON && xhr.responseJSON.error) {
+                        msg = xhr.responseJSON.error;
+                    }
+                    $msg.text(msg).addClass('is-danger');
+                    $('#confirm-code-button').prop('disabled', false).removeClass('is-loading');
                 }
             });
         }

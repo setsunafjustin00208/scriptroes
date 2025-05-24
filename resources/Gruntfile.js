@@ -48,6 +48,12 @@ module.exports = function(grunt) {
         cwd: '../node_modules/@fortawesome/fontawesome-free/css',
         src: ['all.min.css'],
         dest: '../public/resources/css/'
+      },
+      animatecss: {
+        expand: true,
+        cwd: '../node_modules/animate.css',
+        src: ['animate.min.css'],
+        dest: '../public/resources/css/'
       }
     },
     watch: {

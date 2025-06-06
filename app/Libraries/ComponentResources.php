@@ -26,6 +26,10 @@ class ComponentResources
                 'js' => 'resources/js/components/sidebar.min.js',
                 'css' => 'resources/css/components/sidebar.min.css',
             ],
+            'mobile-side-nav' => [
+                'js' => 'resources/js/partials/mobile-side-nav.min.js',
+                'css' => 'resources/css/partials/mobile-side-nav.min.css',
+            ]
         ];
         if (isset($defaults[$componentName])) {
             return $defaults[$componentName];
@@ -57,13 +61,30 @@ class ComponentResources
                 'js' => 'resources/js/components/sidebar.min.js',
                 'css' => 'resources/css/components/sidebar.min.css',
             ],
+            'mobile-side-nav' => [
+                'js' => 'resources/js/partials/mobile-side-nav.min.js',
+                'css' => 'resources/css/partials/mobile-side-nav.min.css',
+            ]
         ];
+
+        
         $styles = [];
         $scripts = [];
         foreach ($defaults as $comp) {
             if (!empty($comp['css'])) $styles[] = $comp['css'];
             if (!empty($comp['js'])) $scripts[] = $comp['js'];
         }
+        
+        // Check if user is logged in and add user layout CSS
+        $session = session();
+        $user = $session->get('user');
+        $isLoggedIn = $user && isset($user['is_logged_in']) && $user['is_logged_in'] === true;
+        
+        if ($isLoggedIn) {
+            $styles[] = 'resources/css/layout/users/user-layout.min.css';
+            $scripts[] = 'resources/js/layout/users/user-layout.min.js';
+        }
+        
         return ['styles' => $styles, 'scripts' => $scripts];
     }
 

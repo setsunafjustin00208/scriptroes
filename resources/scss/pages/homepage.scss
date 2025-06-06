@@ -6,19 +6,6 @@
 
 .homepage {
 
-  height: 100%;
-
-  @include bulmaMixins.mobile {
-     max-width: 600px;
-     width: 100%;
-  } 
-
-  .container.is-fluid { 
-
-    padding-left: unset !important;
-    padding-right: unset !important;
-  }
-
   .title {
     margin-bottom: 1.5rem;
     color: #363636;

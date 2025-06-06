@@ -71,11 +71,9 @@ class HomePage extends BaseController
         $componentResources = ComponentResources::getAllDefaultResources();
         $data['resources']['styles'] = array_merge($componentResources['styles'], [
             'resources/css/pages/homepage.min.css',
-            'resources/css/partials/mobile-side-nav.min.css',
         ]);
         $data['resources']['scripts'] = array_merge($componentResources['scripts'], [
             'resources/js/pages/homepage.min.js',
-            'resources/js/partials/mobile-side-nav.min.js',
         ]);
 
         $this->setStatusCode($data['statusCode']);

@@ -14,10 +14,22 @@ $beige-lighter: #eff0eb;
   $primary: $purple,
   $link: $pink,
   $control-border-width: 3px,
-  $input-shadow: none
+  $input-shadow: none,
+  $blue: #485fc7,
+  $cyan: #3e8ed0,
+  $info: #3298dc,
+  $success: #48c78e,
+  $warning: #ffe08a,
+  $danger: #f14668,
+  $dark: #363636,
+  $text: #4a4a4a,
+  $background: #fff,
+  $border: #dbdbdb,
+  $code: #f14668,
+  $pre: #4a4a4a,
 ); 
 
-@import "../../resources/node_modules/animate.css/animate.css";
+@use "../../resources/node_modules/animate.css/animate.css";
 
-// Import the Google Font 
+// Import the Google Font  
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");

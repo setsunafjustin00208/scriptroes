@@ -42,7 +42,8 @@ class HomePage extends BaseController
         $data['fullname'] = $fullname;
         $data['user'] = $user;
         $data['resources']['styles'] = [  
-            'resources/css/pages/homepage.min.css'
+            'resources/css/pages/homepage.min.css',
+            'resources/css/partials/mobile-side-nav.min.css',
         ];
         $data['resources']['scripts'] = [
             'resources/js/pages/homepage.min.js'
@@ -69,10 +70,12 @@ class HomePage extends BaseController
         // Add all default component resources (navbar, footer, sidebar) at once
         $componentResources = ComponentResources::getAllDefaultResources();
         $data['resources']['styles'] = array_merge($componentResources['styles'], [
-            'resources/css/pages/homepage.min.css'
+            'resources/css/pages/homepage.min.css',
+            'resources/css/partials/mobile-side-nav.min.css',
         ]);
         $data['resources']['scripts'] = array_merge($componentResources['scripts'], [
-            'resources/js/pages/homepage.min.js'
+            'resources/js/pages/homepage.min.js',
+            'resources/js/partials/mobile-side-nav.min.js',
         ]);
 
         $this->setStatusCode($data['statusCode']);

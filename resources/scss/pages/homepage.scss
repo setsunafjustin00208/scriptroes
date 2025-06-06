@@ -1,8 +1,24 @@
 /* pages/homepage */
 
+@use "../../node_modules/bulma/sass/utilities/mixins" as bulmaMixins;
+@use "../../node_modules/bulma/sass/utilities/initial-variables" as bulmaVars;
+@use "../../node_modules/bulma/sass/utilities/derived-variables" as bulmaInitialVars; 
+
 .homepage {
-  max-width: 600px;
-  margin: 2rem auto;
+
+  height: 100%;
+
+  @include bulmaMixins.mobile {
+     max-width: 600px;
+     width: 100%;
+  } 
+
+  .container.is-fluid { 
+
+    padding-left: unset !important;
+    padding-right: unset !important;
+  }
+
   .title {
     margin-bottom: 1.5rem;
     color: #363636;
@@ -11,7 +27,7 @@
   .user-info {
     margin-top: 2rem;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 8px; 
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     padding: 2rem;
     ul {

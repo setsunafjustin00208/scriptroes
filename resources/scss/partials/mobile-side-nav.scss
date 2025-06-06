@@ -1,0 +1,29 @@
+/* partials/mobile-side-nav */
+.___mobile-sidebar{
+    z-index: 9999;
+    position: absolute;
+    
+    // Start hidden off-screen
+    transform: translateX(-100%);
+    
+    // Override animate.css when not animating
+    &:not(.animate__slideInLeft):not(.animate__slideOutLeft) {
+        transform: translateX(-100%);
+    }
+    
+    // Ensure smooth animations
+    &.animate__slideInLeft,
+    &.animate__slideOutLeft {
+        animation-duration: 0.6s !important;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+        background-color: #24272d !important;
+        color: #f5f5f5 !important;
+    }
+}
+
+// Hide elements with x-cloak until Alpine loads
+[x-cloak] {
+    display: none !important;
+}

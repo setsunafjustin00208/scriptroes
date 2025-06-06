@@ -10,13 +10,19 @@
     padding: 0.5em 1em;
     box-shadow: none !important;
     border-radius: 0 !important;
-    
+
     .navbar-brand {
         font-size: 1.5em;
         font-weight: bold;
         color: #000 !important;
         text-decoration: none;
         margin-right: 1em;
+
+        @include bulmaMixins.mobile {
+            .____mobile_brand {
+                padding: .5rem .1rem
+            } 
+        }
     
         &:hover {
             color: #000 !important;
